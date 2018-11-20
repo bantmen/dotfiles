@@ -1,0 +1,13 @@
+{
+    "window.zoomLevel": 1,
+    "files.trimTrailingWhitespace": true,
+    "python.linting.enabled": false,
+    "workbench.editor.enablePreview": false,
+    "editor.minimap.enabled": false,
+    "sublimeTextKeymap.promptV3Features": true,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "workbench.panel.location": "right",
+    "editor.wordWrap": true,
+    "extensions.ignoreRecommendations": false,
+    "breadcrumbs.enabled": true
+}
