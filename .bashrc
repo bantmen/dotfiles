@@ -23,13 +23,45 @@ source "${GITAWAREPROMPT}/main.sh"
 export PS1="\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 
 alias l=ls
+alias gpom="git pull origin master"
+alias gcom="git co master"
 
 # git aliases
+git config --global alias.a add
+git config --global alias.b branch
+git config --global alias.c commit
+git config --global alias.s status
+git config --global alias.d diff
+git config --global alias.p push
+git config --global alias.sh show
 git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
+git config --global alias.cp cherry-pick
+git config --global alias.rb rebase
+
+# git diff-so-fancy setup
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+
+git config --global color.ui true
+
+git config --global color.diff-highlight.oldNormal    "red bold"
+git config --global color.diff-highlight.oldHighlight "red bold 52"
+git config --global color.diff-highlight.newNormal    "green bold"
+git config --global color.diff-highlight.newHighlight "green bold 22"
+
+git config --global color.diff.meta       "yellow"
+git config --global color.diff.frag       "magenta bold"
+git config --global color.diff.commit     "yellow bold"
+git config --global color.diff.old        "red bold"
+git config --global color.diff.new        "green bold"
+git config --global color.diff.whitespace "red reverse"
 
 alias gvim=/Applications/MacVim.app/Contents/bin/gvim
 
 alias gsed=/usr/local/bin/sed
+
+gif_maker() {
+    in=$1
+    out=$2
+    ffmpeg -y -i $in -vf fps=10,scale=320:-1:flags=lanczos,palettegen palette.png
+    ffmpeg -i $in -i palette.png -filter_complex "fps=10,scale=320:-1:flags=lanczos[x];[x][1:v]paletteuse" $out
+}
