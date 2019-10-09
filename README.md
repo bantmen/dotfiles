@@ -4,6 +4,9 @@ https://github.com/macvim-dev/macvim
 
 https://github.com/kien/ctrlp.vim
 
+Alternative to ctrlp: https://github.com/junegunn/fzf
+- `brew install fzf`
+
 https://github.com/altercation/vim-colors-solarized
 
 Install [dracula](https://github.com/dracula/vim) theme: 
