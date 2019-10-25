@@ -1,7 +1,11 @@
 syntax enable
-set background=light
-let g:solarized_termcolors=256
-colorscheme solarized
+
+"set background=light
+"let g:solarized_termcolors=256
+"colorscheme solarized
+
+packadd! dracula
+colorscheme dracula
 
 " Press Space to turn off highlighting and clear any message already displayed.
 :noremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
@@ -10,17 +14,30 @@ set mouse=a
 set ruler
 set wildmenu
 
+" Python breakpoint
 map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc> 
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'c'
+set rtp+=/usr/local/opt/fzf
+
+" ctrlp
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'c'
+
+" fzf
+nmap ; :FZF<CR>
+" nmap ; :Buffers<CR>
+" nmap <Leader>t :Files<CR>
+" nmap <Leader>r :Tags<CR>
 
 au BufNewFile,BufRead *.mm set filetype=objcpp
 
 nnoremap gb :ls<CR>:buffer<Space>
+
+" Hide swp files in Explore
+let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
 "
 " A (not so) minimal vimrc.
