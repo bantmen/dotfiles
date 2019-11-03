@@ -29,8 +29,10 @@ alias gcom="git co master"
 # git aliases
 git config --global alias.a add
 git config --global alias.b branch
+git config --global alias.br branch
 git config --global alias.c commit
 git config --global alias.s status
+git config --global alias.st status
 git config --global alias.d diff
 git config --global alias.p push
 git config --global alias.sh show
@@ -65,3 +67,8 @@ gif_maker() {
     ffmpeg -y -i $in -vf fps=10,scale=320:-1:flags=lanczos,palettegen palette.png
     ffmpeg -i $in -i palette.png -filter_complex "fps=10,scale=320:-1:flags=lanczos[x];[x][1:v]paletteuse" $out
 }
+
+# vim
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+alias gvim=/Applications/MacVim.app/Contents/bin/gvim
+alias vimdiff="gvim -d"
