@@ -20,17 +20,15 @@ map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 
 set rtp+=/usr/local/opt/fzf
 
-" ctrlp
-" set runtimepath^=~/.vim/bundle/ctrlp.vim
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'c'
-
 " fzf
 nmap ; :FZF<CR>
+nnoremap <Leader>rg :Rg<Space>
 " nmap ; :Buffers<CR>
 " nmap <Leader>t :Files<CR>
 " nmap <Leader>r :Tags<CR>
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
 
 au BufNewFile,BufRead *.mm set filetype=objcpp
 
@@ -39,8 +37,17 @@ nnoremap gb :ls<CR>:buffer<Space>
 " Hide swp files in Explore
 let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
+" vim-plug
+call plug#begin('~/.vim/plugged')
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+call plug#end()
+
 "
 " A (not so) minimal vimrc.
+" https://github.com/mhinz/vim-galore/blob/master/static/minimal-vimrc.vim
 "
 
 " You want Vim, not vi. When Vim finds a vimrc, 'nocompatible' is set anyway.
@@ -84,3 +91,36 @@ if has('multi_byte') && &encoding ==# 'utf-8'
 else
   let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
 endif
+
+" Put all temporary files under the same directory.
+" https://github.com/mhinz/vim-galore#handling-backup-swap-undo-and-viminfo-files
+
+if !isdirectory($HOME."/.vim/files")
+    call mkdir($HOME."/.vim/files", "p")
+endif
+
+if !isdirectory($HOME."/.vim/files/backup")
+    call mkdir($HOME."/.vim/files/backup", "p")
+endif
+
+if !isdirectory($HOME."/.vim/files/swap")
+    call mkdir($HOME."/.vim/files/swap", "p")
+endif
+
+if !isdirectory($HOME."/.vim/files/undo")
+    call mkdir($HOME."/.vim/files/undo", "p")
+endif
+
+if !isdirectory($HOME."/.vim/files/info")
+    call mkdir($HOME."/.vim/files/info", "p")
+endif
+
+set backup
+set backupdir   =$HOME/.vim/files/backup/
+set backupext   =-vimbackup
+set backupskip  =
+set directory   =$HOME/.vim/files/swap//
+set updatecount =100
+set undofile
+set undodir     =$HOME/.vim/files/undo/
+set viminfo     ='100,n$HOME/.vim/files/info/viminfo
