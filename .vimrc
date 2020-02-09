@@ -42,9 +42,9 @@ command Src :source ~/.vimrc
 " done in the correct place.
 command Cwd :lcd %:p:h
 
+" fzf
 set rtp+=/usr/local/opt/fzf
 
-" fzf
 nmap ; :FZF<CR>
 nmap , :Buffers<CR>
 nnoremap <Leader>rg :Rg<Space>
@@ -53,9 +53,10 @@ nnoremap <Leader>rgs exe(:Rg expand('<cword>') *)
 " Don't surface .gitignore files
 let $FZF_DEFAULT_COMMAND = 'rg -S --files --hidden'
 
-nnoremap <leader>bb :Rg expand('<cword>')
-nnoremap <leader>bc :Rg annotation<CR>
-
+function! Rg_cword()
+    execute 'Rg' expand('<cword>')
+endfunction
+nnoremap <leader>; :call Rg_cword()<CR>
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
@@ -141,7 +142,6 @@ function! Mkdir(path)
         call mkdir(a:path, "p")
     endif
 endfunction
-
 call Mkdir($HOME."/.vim/files")
 call Mkdir($HOME."/.vim/files/backup")
 call Mkdir($HOME."/.vim/files/swap")
