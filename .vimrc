@@ -13,22 +13,57 @@ colorscheme dracula
 set mouse=a
 set ruler
 set wildmenu
+set shortmess-=S " TODO: Why is this broken?
 
-" Python breakpoint
+" Python
+" breakpoint
 map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc> 
+" terminal commands
+command Py vertical botright term ipython3
+command Py2 vertical botright term ipython2
+"TODO
+"autocmd FileType python map <buffer> <S-e> :w<CR>:!/usr/bin/env python %<CR>
+" vim-slime
+let g:slime_target = "vimterminal"
+let g:slime_python_ipython = 1
+"map <Enter> <C-n> <C-n>
+"nmap <f5> :w<cr>:SlimeSend0 "exec(open('" . expand('%:p') . "').read())\n"<CR>
+nmap <f5> :w<cr>:SlimeSend0 "time python3 " . expand('%') . "\n"<CR>
+nmap <f6> :w<cr>:SlimeSend0 "python3 -i " . expand('%') . "\n"<CR>
+nmap <f7> :w<cr>:SlimeSend0 "python3 -m cProfile  " . expand('%') . "\n"<CR>
+nmap <f8> :w<cr>:SlimeSend0 "time python2 " . expand('%') . "\n"<CR>
+
+command Term vertical botright term
+" Add the current file path to copy buffer.
+command Fn :let @+ = expand("%")
+command Src :source ~/.vimrc
+" Used to change the working directory for a new tab. This way, FZF search is
+" done in the correct place.
+command Cwd :lcd %:p:h
 
 set rtp+=/usr/local/opt/fzf
 
 " fzf
 nmap ; :FZF<CR>
+nmap , :Buffers<CR>
 nnoremap <Leader>rg :Rg<Space>
-" nmap ; :Buffers<CR>
-" nmap <Leader>t :Files<CR>
-" nmap <Leader>r :Tags<CR>
+"nnoremap <Leader>rgs :Rg . "expand('<cword>')"
+nnoremap <Leader>rgs exe(:Rg expand('<cword>') *)
+" Don't surface .gitignore files
+let $FZF_DEFAULT_COMMAND = 'rg -S --files --hidden'
+
+nnoremap <leader>bb :Rg expand('<cword>')
+nnoremap <leader>bc :Rg annotation<CR>
+
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeFind<CR>
+let NERDTreeIgnore=['\.pyc$']
+
+" vim-workspace
+let g:workspace_autocreate =1
 
 au BufNewFile,BufRead *.mm set filetype=objcpp
 
@@ -38,11 +73,17 @@ nnoremap gb :ls<CR>:buffer<Space>
 let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
 " vim-plug
+" TODO: Add dracula here
 call plug#begin('~/.vim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+"Plug 'jupyter-vim/jupyter-vim'
+Plug 'jpalardy/vim-slime'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'thaerkh/vim-workspace'
 call plug#end()
 
 "
@@ -95,25 +136,17 @@ endif
 " Put all temporary files under the same directory.
 " https://github.com/mhinz/vim-galore#handling-backup-swap-undo-and-viminfo-files
 
-if !isdirectory($HOME."/.vim/files")
-    call mkdir($HOME."/.vim/files", "p")
-endif
+function! Mkdir(path)
+    if !isdirectory(a:path)
+        call mkdir(a:path, "p")
+    endif
+endfunction
 
-if !isdirectory($HOME."/.vim/files/backup")
-    call mkdir($HOME."/.vim/files/backup", "p")
-endif
-
-if !isdirectory($HOME."/.vim/files/swap")
-    call mkdir($HOME."/.vim/files/swap", "p")
-endif
-
-if !isdirectory($HOME."/.vim/files/undo")
-    call mkdir($HOME."/.vim/files/undo", "p")
-endif
-
-if !isdirectory($HOME."/.vim/files/info")
-    call mkdir($HOME."/.vim/files/info", "p")
-endif
+call Mkdir($HOME."/.vim/files")
+call Mkdir($HOME."/.vim/files/backup")
+call Mkdir($HOME."/.vim/files/swap")
+call Mkdir($HOME."/.vim/files/undo")
+call Mkdir($HOME."/.vim/files/info")
 
 set backup
 set backupdir   =$HOME/.vim/files/backup/
@@ -124,3 +157,4 @@ set updatecount =100
 set undofile
 set undodir     =$HOME/.vim/files/undo/
 set viminfo     ='100,n$HOME/.vim/files/info/viminfo
+set belloff=all " no error bell
