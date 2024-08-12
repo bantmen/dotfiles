@@ -25,6 +25,9 @@ export PS1="\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ 
 alias l=ls
 alias gpom="git pull origin master"
 alias gcom="git co master"
+alias gam="git a -u && git c --amend --no-edit"
+alias gpush="git a -u && git c --amend --no-edit && git p -f"
+alias grbm="git fetch origin main && git rb origin/main"
 
 # git aliases
 git config --global alias.a add
