@@ -23,8 +23,8 @@ source "${GITAWAREPROMPT}/main.sh"
 export PS1="\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 
 alias l=ls
-alias gpom="git pull origin master"
-alias gcom="git co master"
+alias gpom="git pull origin main"
+alias gcom="git co main"
 alias gam="git a -u && git c --amend --no-edit"
 alias gpush="git a -u && git c --amend --no-edit && git p -f"
 alias grbm="git fetch origin main && git rb origin/main"
