@@ -3,6 +3,7 @@
 https://github.com/macvim-dev/macvim
 
 Install vim plugin manager https://github.com/junegunn/vim-plug
+- Once installed, run :PlugInstall in Vim
 
 https://github.com/kien/ctrlp.vim
 
