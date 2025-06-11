@@ -2,6 +2,8 @@
 
 https://github.com/macvim-dev/macvim
 
+Install vim plugin manager https://github.com/junegunn/vim-plug
+
 https://github.com/kien/ctrlp.vim
 
 Alternative to ctrlp: https://github.com/junegunn/fzf
