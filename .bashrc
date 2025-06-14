@@ -17,10 +17,12 @@ function db { git diff --color $1 | diff-so-fancy; }
 # clang-format
 function cf { clang-format -style=file -i $1; }
 
-# git branch status
+# git branch status in the prompt, handles venv
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
-export PS1="\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+export VIRTUAL_ENV_DISABLE_PROMPT=1 # prevent double adding
+venv_prompt='${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }'
+export PS1="${venv_prompt}\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 
 alias l=ls
 alias gpom="git pull origin main"
