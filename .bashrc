@@ -22,7 +22,7 @@ export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 export VIRTUAL_ENV_DISABLE_PROMPT=1 # prevent double adding
 venv_prompt='${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }'
-export PS1="${venv_prompt}\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+export PS1="${venv_prompt}\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 
 alias l=ls
 alias gpom="git pull origin main"
